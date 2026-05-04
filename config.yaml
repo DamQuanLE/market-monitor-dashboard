@@ -1,0 +1,340 @@
+data:
+  default_provider: "yfinance"
+  refresh_interval_seconds: 60
+
+  providers:
+    yfinance:
+      enabled: true
+      mode: "polling"
+      refresh_interval_seconds: 60
+
+    fred:
+      enabled: true
+      mode: "daily"
+      api_key_env: "FRED_API_KEY"
+
+    ibkr:
+      enabled: false
+      mode: "streaming"
+      host: "127.0.0.1"
+      port: 7497
+      client_id: 1
+
+    twelve_data:
+      enabled: false
+      mode: "websocket"
+      api_key_env: "TWELVE_DATA_API_KEY"
+
+    finnhub:
+      enabled: false
+      mode: "websocket"
+      api_key_env: "FINNHUB_API_KEY"
+
+    databento:
+      enabled: false
+      mode: "websocket"
+      api_key_env: "DATABENTO_API_KEY"
+
+assets:
+  commodities:
+    Gold:
+      type: "future"
+      yahoo_symbol: "GC=F"
+      ibkr_symbol: "GC"
+      ibkr_exchange: "COMEX"
+      currency: "USD"
+
+    Silver:
+      type: "future"
+      yahoo_symbol: "SI=F"
+      ibkr_symbol: "SI"
+      ibkr_exchange: "COMEX"
+      currency: "USD"
+
+    Copper:
+      type: "future"
+      yahoo_symbol: "HG=F"
+      ibkr_symbol: "HG"
+      ibkr_exchange: "COMEX"
+      currency: "USD"
+
+    WTI:
+      type: "future"
+      yahoo_symbol: "CL=F"
+      ibkr_symbol: "CL"
+      ibkr_exchange: "NYMEX"
+      currency: "USD"
+
+    Brent:
+      type: "future"
+      yahoo_symbol: "BZ=F"
+      ibkr_symbol: "BZ"
+      ibkr_exchange: "NYMEX"
+      currency: "USD"
+
+    Natural_Gas:
+      type: "future"
+      yahoo_symbol: "NG=F"
+      ibkr_symbol: "NG"
+      ibkr_exchange: "NYMEX"
+      currency: "USD"
+
+    Platinum:
+      type: "future"
+      yahoo_symbol: "PL=F"
+      currency: "USD"
+
+    Palladium:
+      type: "future"
+      yahoo_symbol: "PA=F"
+      currency: "USD"
+
+    Wheat:
+      type: "future"
+      yahoo_symbol: "ZW=F"
+      currency: "USD"
+
+    Corn:
+      type: "future"
+      yahoo_symbol: "ZC=F"
+      currency: "USD"
+
+    Coffee:
+      type: "future"
+      yahoo_symbol: "KC=F"
+      currency: "USD"
+
+    Sugar:
+      type: "future"
+      yahoo_symbol: "SB=F"
+      currency: "USD"
+
+  stocks:
+    Apple:
+      type: "equity"
+      symbol: "AAPL"
+      currency: "USD"
+
+    Microsoft:
+      type: "equity"
+      symbol: "MSFT"
+      currency: "USD"
+
+    Nvidia:
+      type: "equity"
+      symbol: "NVDA"
+      currency: "USD"
+
+    Tesla:
+      type: "equity"
+      symbol: "TSLA"
+      currency: "USD"
+
+    SPY:
+      type: "etf"
+      symbol: "SPY"
+      currency: "USD"
+
+    QQQ:
+      type: "etf"
+      symbol: "QQQ"
+      currency: "USD"
+
+  bonds:
+    US10Y:
+      type: "macro_yield"
+      fred_symbol: "DGS10"
+      refresh: "daily"
+
+    US2Y:
+      type: "macro_yield"
+      fred_symbol: "DGS2"
+      refresh: "daily"
+
+    US30Y:
+      type: "macro_yield"
+      fred_symbol: "DGS30"
+      refresh: "daily"
+
+    TLT:
+      type: "bond_etf"
+      symbol: "TLT"
+
+    IEF:
+      type: "bond_etf"
+      symbol: "IEF"
+
+    SHY:
+      type: "bond_etf"
+      symbol: "SHY"
+
+    Ten_Year_Treasury_Future:
+      type: "future"
+      ibkr_symbol: "ZN"
+      ibkr_exchange: "CBOT"
+      currency: "USD"
+
+  macro:
+    DXY:
+      type: "index"
+      yahoo_symbol: "DX-Y.NYB"
+
+    VIX:
+      type: "index"
+      yahoo_symbol: "^VIX"
+
+    SP500:
+      type: "index"
+      yahoo_symbol: "^GSPC"
+
+    Nasdaq:
+      type: "index"
+      yahoo_symbol: "^IXIC"
+
+  crypto:
+    Bitcoin:
+      type: "crypto"
+      yahoo_symbol: "BTC-USD"
+
+    Ethereum:
+      type: "crypto"
+      yahoo_symbol: "ETH-USD"
+
+alerts:
+  enabled: true
+  cooldown_hours: 6
+  email_enabled: true
+
+  rules:
+    price_above: true
+    price_below: true
+    daily_change_above: true
+    daily_change_below: true
+    rsi_overbought: true
+    rsi_oversold: true
+    moving_average_cross: true
+    breakout_20d: true
+    breakdown_20d: true
+    abnormal_volatility: true
+    ai_important_news: true
+    ai_sentiment_shift: true
+
+technical_indicators:
+  moving_averages: [20, 50, 200]
+  rsi_window: 14
+  volatility_window: 20
+  bollinger_window: 20
+  bollinger_std: 2
+  drawdown_enabled: true
+
+llm:
+  enabled: true
+  provider: "openai"
+  model_openai: "gpt-4.1-mini"
+  model_gemini: "gemini-2.0-flash"
+  temperature: 0.2
+  max_tokens: 1200
+  manual_only: true
+  cache_enabled: true
+
+news:
+  enabled: true
+  provider: "newsapi"
+  update_frequency_hours: 24
+  language: "en"
+  max_articles_per_asset: 20
+
+  keywords:
+    Gold:
+      - gold price
+      - gold futures
+      - central bank gold
+      - inflation gold
+      - real yields gold
+
+    Silver:
+      - silver price
+      - silver futures
+      - industrial demand silver
+
+    Copper:
+      - copper price
+      - China copper demand
+      - copper inventories
+      - industrial metals
+
+    WTI:
+      - crude oil price
+      - WTI oil
+      - OPEC
+      - oil inventories
+      - geopolitical oil risk
+
+    Brent:
+      - Brent crude
+      - oil supply
+      - OPEC+
+
+    Natural_Gas:
+      - natural gas price
+      - LNG
+      - gas storage
+      - European gas
+
+    Bonds:
+      - treasury yields
+      - Federal Reserve
+      - interest rates
+      - inflation data
+
+    Stocks:
+      - stock market
+      - earnings
+      - Federal Reserve
+      - risk sentiment
+
+nlp:
+  sentiment_model: "llm"
+  fallback_model: "vader"
+  use_llm_summary: true
+  use_keyword_scoring: true
+  use_event_detection: true
+
+  important_events:
+    - inflation
+    - interest rates
+    - Federal Reserve
+    - dollar index
+    - war
+    - sanctions
+    - OPEC
+    - inventory
+    - supply disruption
+    - China demand
+    - recession
+    - central banks
+    - earnings
+    - default risk
+    - yield curve
+
+prediction:
+  enabled: true
+  horizon_days: [1, 5, 20]
+  disclaimer: true
+
+  weights:
+    technical_score: 0.35
+    news_sentiment_score: 0.25
+    momentum_score: 0.20
+    volatility_score: 0.10
+    macro_score: 0.10
+
+email:
+  enabled: true
+  smtp_host_env: "EMAIL_HOST"
+  smtp_port_env: "EMAIL_PORT"
+  smtp_user_env: "EMAIL_USER"
+  smtp_password_env: "EMAIL_PASSWORD"
+  email_to_env: "EMAIL_TO"
+  daily_digest_enabled: true
+  daily_digest_time: "08:00"
